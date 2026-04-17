@@ -9,7 +9,7 @@ export const siteConfig = {
   websiteUrl: "https://remyparidaens.be",
   instagramHandle: "remyparidaens.be",
   instagramUrl: "https://www.instagram.com/remyparidaens.be/",
-  availability: "Werkdagen, vakanties en weekends",
+  availability: "Beschikbaar op werkdagen, tijdens schoolvakanties en in het weekend.",
   businessNumber: "",
   vatNumber: "",
   prices: {

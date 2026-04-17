@@ -116,7 +116,7 @@ export default function Page() {
             </div>
             <div className="hero-tags">
               <span>2e en 3e graad secundair</span>
-              <span>Werkdagen, vakanties en weekends</span>
+              <span>Werkdagen, schoolvakanties en weekends</span>
               <span>Online en fysiek mogelijk</span>
             </div>
           </div>
