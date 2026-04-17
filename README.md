@@ -1,42 +1,37 @@
-# Rémy Paridaens | Finale websiteversie
+# Rémy Paridaens | Website met werkend contactformulier via Resend
 
-Dit project bevat de afgewerkte website met:
-- uitgebreide FAQ
-- contactformulier
-- privacypagina
-- Instagram-koppeling
-- ondernemings- en contactgegevens
+Deze versie gebruikt **Resend** om formulierberichten te versturen.
+Dat is betrouwbaarder op Vercel dan klassieke SMTP via Hotmail/Outlook.
 
-## Belangrijk vóór commerciële livegang
-Voeg na je inschrijving in de KBO je ondernemingsnummer en eventueel btw-nummer toe in:
+## Wat moet je doen?
+
+### 1. Maak een Resend-account
+Ga naar resend.com en maak een account aan.
+
+### 2. Verifieer je domein
+Voeg je domein `remyparidaens.be` toe in Resend en doorloop de DNS-verificatie.
+
+### 3. Maak een API key
+Maak in Resend een API key aan.
+
+### 4. Voeg in Vercel deze environment variables toe
+- RESEND_API_KEY
+- RESEND_FROM
+- CONTACT_TO
+
+Aanbevolen waarden:
+- RESEND_FROM = Website <contact@remyparidaens.be>
+- CONTACT_TO = remy.paridaens@hotmail.be
+
+### 5. Redeploy je project
+Na het toevoegen of wijzigen van environment variables moet je opnieuw deployen.
+
+## Belangrijk
+Je ondernemingsnummer en btw-nummer kan je later toevoegen in:
 `app/site-config.ts`
-
-## Contactformulier activeren
-Het formulier is technisch voorzien, maar om echte mails te versturen moet je in Vercel of lokaal deze environment variables toevoegen:
-
-- SMTP_HOST
-- SMTP_PORT
-- SMTP_USER
-- SMTP_PASS
-- CONTACT_TO (optioneel)
-
-Daarna verzendt het formulier naar je mailbox met een bevestigingsmelding op de pagina.
 
 ## Lokale opstart
 ```bash
 npm install
 npm run dev
 ```
-
-## Waar gegevens aanpassen?
-Open:
-`app/site-config.ts`
-
-Daar kan je later eenvoudig aanpassen:
-- adres
-- e-mail
-- telefoon
-- Instagram
-- ondernemingsnummer
-- btw-nummer
-- tarieven

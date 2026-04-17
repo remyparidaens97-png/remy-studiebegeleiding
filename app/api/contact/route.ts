@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 import { siteConfig } from "../../site-config";
 
 type ContactPayload = {
@@ -23,13 +23,11 @@ export async function POST(request: Request) {
       );
     }
 
-    const host = process.env.SMTP_HOST;
-    const port = Number(process.env.SMTP_PORT || 587);
-    const user = process.env.SMTP_USER;
-    const pass = process.env.SMTP_PASS;
-    const to = process.env.CONTACT_TO || siteConfig.email;
+    const apiKey = process.env.RESEND_API_KEY;
+    const contactTo = process.env.CONTACT_TO || siteConfig.email;
+    const fromAddress = process.env.RESEND_FROM || "Website <contact@remyparidaens.be>";
 
-    if (!host || !user || !pass) {
+    if (!apiKey) {
       return NextResponse.json(
         {
           message:
@@ -39,14 +37,8 @@ export async function POST(request: Request) {
       );
     }
 
-    const transporter = nodemailer.createTransport({
-      host,
-      port,
-      secure: port === 465,
-      auth: { user, pass },
-    });
+    const resend = new Resend(apiKey);
 
-    const subject = `Nieuwe aanvraag via website - ${body.naam}`;
     const text = [
       `Naam: ${body.naam}`,
       `E-mail: ${body.email}`,
@@ -58,13 +50,32 @@ export async function POST(request: Request) {
       body.bericht,
     ].join("\n");
 
-    await transporter.sendMail({
-      from: `Websiteformulier <${user}>`,
+    const html = `
+      <h2>Nieuwe aanvraag via website</h2>
+      <p><strong>Naam:</strong> ${body.naam}</p>
+      <p><strong>E-mail:</strong> ${body.email}</p>
+      <p><strong>Telefoonnummer:</strong> ${body.telefoon || "-"}</p>
+      <p><strong>Leerjaar:</strong> ${body.leerjaar}</p>
+      <p><strong>Vak:</strong> ${body.vak}</p>
+      <p><strong>Bericht:</strong></p>
+      <p>${body.bericht.replace(/\n/g, "<br />")}</p>
+    `;
+
+    const response = await resend.emails.send({
+      from: fromAddress,
+      to: [contactTo],
       replyTo: body.email,
-      to,
-      subject,
+      subject: `Nieuwe aanvraag via website - ${body.naam}`,
       text,
+      html,
     });
+
+    if (response.error) {
+      return NextResponse.json(
+        { message: "Er liep iets mis bij het verzenden van het formulier." },
+        { status: 500 },
+      );
+    }
 
     return NextResponse.json({ ok: true });
   } catch {
