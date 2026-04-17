@@ -116,7 +116,7 @@ export default function Page() {
             </div>
             <div className="hero-tags">
               <span>2e en 3e graad secundair</span>
-              <span>Werkdagen, schoolvakanties en weekends</span>
+              <span>Beschikbaar op werkdagen, tijdens schoolvakanties en in het weekend</span>
               <span>Online en fysiek mogelijk</span>
             </div>
           </div>
@@ -307,11 +307,6 @@ export default function Page() {
                     @{siteConfig.instagramHandle}
                   </a>
                 </p>
-              </div>
-
-              <div className="contact-card">
-                <h3>Ondernemingsgegevens</h3>
-                <p>Ondernemingsnummer en btw-nummer worden toegevoegd zodra de inschrijving administratief is afgerond.</p>
               </div>
             </div>
 
