@@ -1,10 +1,11 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import { siteConfig } from "./site-config";
 
 export const metadata: Metadata = {
-  title: "Rémy Paridaens | Studiebegeleiding in wetenschappen en geschiedenis",
+  title: siteConfig.brandName,
   description:
-    "Professionele studiebegeleiding voor leerlingen uit de 2e en 3e graad secundair in biologie, fysica, STEM-vakken en geschiedenis.",
+    "Professionele studiebegeleiding voor leerlingen uit het secundair onderwijs in biologie, fysica, STEM en geschiedenis.",
 };
 
 export default function RootLayout({
